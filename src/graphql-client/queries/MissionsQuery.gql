@@ -1,0 +1,17 @@
+query findMissionByName($name: String!) {
+  missions(find: { name: $name }) {
+    description
+    id
+    manufacturers
+    name
+    payloads {
+      id
+      nationality
+      orbit
+      payload_mass_kg
+      payload_mass_lbs
+      payload_type
+      reused
+    }
+  }
+}
