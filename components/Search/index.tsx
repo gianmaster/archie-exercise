@@ -1,4 +1,4 @@
-// create a search input with chakra-ui
+/* eslint-disable react/no-children-prop */
 
 import {
   Input,

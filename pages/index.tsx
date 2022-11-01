@@ -56,7 +56,7 @@ function Home() {
   return (
     <div>
       <Head>
-        <title>SpaceX's Launches Past - Giancarlos Cercado</title>
+        <title>{`SpaceX's Launches Past - Giancarlos Cercado`}</title>
         <meta
           name="description"
           content="SpaceX's Mission Searcher with GraphQl(SpaceX api), Next/Typescript and Chakra UI"
@@ -68,7 +68,7 @@ function Home() {
         <Container maxW="full" mx={8}>
           <Box alignItems={'center'}>
             <Text fontSize="3xl" color={'blue.400'} mt={'4'} mb={'4'}>
-              SpaceX's Launches Past
+              {`SpaceX's Launches Past`}
             </Text>
             <Search
               onSearchDebounced={handleSearch}
@@ -91,7 +91,7 @@ function Home() {
             )}
 
             <CardList dataList={launches as Launch[]} isLoading={loading} />
-            {!loading && launches.length === 0 && search.length > 0 && (
+            {!loading && launches.length === 0 && search?.length > 0 && (
               <Alert status="info">
                 <AlertIcon />
                 No results found
