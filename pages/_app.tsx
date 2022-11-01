@@ -1,16 +1,14 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-
-const client = new ApolloClient({
-  uri: process.env.NEXT_PUBLIC_GRAPHQL_URI,
-  cache: new InMemoryCache(),
-});
+import { ApolloProvider } from '@apollo/client';
+import { useApollo } from '../src/lib/apollo-client';
 
 export default function App({ Component, pageProps }: AppProps) {
+  const apolloClient = useApollo(pageProps);
+
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       <ChakraProvider>
         <Component {...pageProps} />
       </ChakraProvider>

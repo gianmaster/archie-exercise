@@ -1,3 +1,4 @@
+import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -14,8 +15,27 @@ import {
 import { useEffect, useMemo, useState } from 'react';
 import Search from '../components/Search';
 import { Launch } from '../src/graphql-client/types.global';
-import { useLaunchesPastQuery } from '../src/graphql-client/queries/LaunchPastQuery.generated';
+import {
+  LaunchesPastDocument,
+  useLaunchesPastQuery,
+} from '../src/graphql-client/queries/LaunchPastQuery.generated';
 import CardList from '../components/CardList';
+import { addApolloState, initializeApollo } from '../src/lib/apollo-client';
+
+export async function getStaticProps() {
+  const apolloClient = initializeApollo();
+
+  await apolloClient.query({
+    query: LaunchesPastDocument,
+    variables: {
+      name: '',
+    },
+  });
+
+  return addApolloState(apolloClient, {
+    props: {},
+  });
+}
 
 function Home() {
   const router = useRouter();
@@ -91,7 +111,7 @@ function Home() {
             )}
 
             <CardList dataList={launches as Launch[]} isLoading={loading} />
-            {!loading && launches.length === 0 && search?.length > 0 && (
+            {!loading && !error && launches.length === 0 && search?.length > 0 && (
               <Alert status="info">
                 <AlertIcon />
                 No results found
