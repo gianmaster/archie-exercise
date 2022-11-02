@@ -6,15 +6,15 @@ import {
   Wrap,
   WrapItem,
 } from '@chakra-ui/react';
-import { Launch } from '../../src/graphql-client/types.global';
-import Card from '../Card';
+import { Mission } from '../../src/graphql-client/types.global';
+import MissionCard from '../MissionCard';
 
-type CardListProps = {
-  dataList: Launch[];
+type MissionCardListProps = {
+  dataList: Mission[];
   isLoading: boolean;
 };
 
-function CardList({ dataList, isLoading }: CardListProps) {
+function MissionCardList({ dataList, isLoading }: MissionCardListProps) {
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   if (isLoading) {
@@ -29,7 +29,7 @@ function CardList({ dataList, isLoading }: CardListProps) {
     return (
       <VStack spacing={8} align="stretch">
         {dataList.map((data) => (
-          <Card key={data.id} data={data} />
+          <MissionCard key={data.id} data={data} />
         ))}
       </VStack>
     );
@@ -39,11 +39,11 @@ function CardList({ dataList, isLoading }: CardListProps) {
     <Wrap spacingX={12} spacingY={8}>
       {dataList.map((launch) => (
         <WrapItem key={launch.id}>
-          <Card data={launch} />
+          <MissionCard data={launch} />
         </WrapItem>
       ))}
     </Wrap>
   );
 }
 
-export default CardList;
+export default MissionCardList;

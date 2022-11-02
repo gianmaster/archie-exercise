@@ -3,11 +3,11 @@ import { Box, Image, Link, Stack, useBreakpointValue } from '@chakra-ui/react';
 import { Launch } from '../../src/graphql-client/types.global';
 import { YoutubeIcon } from '../icons';
 
-export type CardProps = {
+export type LaunchCardProps = {
   data: Launch;
 };
 
-function Card({ data }: CardProps) {
+function LaunchCard({ data }: LaunchCardProps) {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const boxWidth = isMobile ? 'full' : '400px';
 
@@ -85,4 +85,4 @@ function Card({ data }: CardProps) {
   );
 }
 
-export default Card;
+export default LaunchCard;

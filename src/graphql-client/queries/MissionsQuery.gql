@@ -1,9 +1,12 @@
 query findMissionByName($name: String!) {
   missions(find: { name: $name }) {
-    description
     id
-    manufacturers
     name
+    twitter
+    website
+    wikipedia
+    description
+    manufacturers
     payloads {
       id
       nationality

@@ -13,13 +13,5 @@ query launchesPast($name: String!) {
       video_link
       flickr_images
     }
-    rocket {
-      rocket_name
-    }
-    ships {
-      name
-      home_port
-      image
-    }
   }
 }

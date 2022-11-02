@@ -8,16 +8,19 @@ export type FindMissionByNameQueryVariables = Types.Exact<{
 }>;
 
 
-export type FindMissionByNameQuery = { __typename?: 'Query', missions?: Array<{ __typename?: 'Mission', description?: string | null, id?: string | null, manufacturers?: Array<string | null> | null, name?: string | null, payloads?: Array<{ __typename?: 'Payload', id?: string | null, nationality?: string | null, orbit?: string | null, payload_mass_kg?: number | null, payload_mass_lbs?: number | null, payload_type?: string | null, reused?: boolean | null } | null> | null } | null> | null };
+export type FindMissionByNameQuery = { __typename?: 'Query', missions?: Array<{ __typename?: 'Mission', id?: string | null, name?: string | null, twitter?: string | null, website?: string | null, wikipedia?: string | null, description?: string | null, manufacturers?: Array<string | null> | null, payloads?: Array<{ __typename?: 'Payload', id?: string | null, nationality?: string | null, orbit?: string | null, payload_mass_kg?: number | null, payload_mass_lbs?: number | null, payload_type?: string | null, reused?: boolean | null } | null> | null } | null> | null };
 
 
 export const FindMissionByNameDocument = gql`
     query findMissionByName($name: String!) {
   missions(find: {name: $name}) {
-    description
     id
-    manufacturers
     name
+    twitter
+    website
+    wikipedia
+    description
+    manufacturers
     payloads {
       id
       nationality

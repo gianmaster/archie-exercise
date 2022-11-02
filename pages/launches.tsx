@@ -13,19 +13,19 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useMemo, useState } from 'react';
 import Search from '../components/Search';
-import { Mission } from '../src/graphql-client/types.global';
+import { Launch } from '../src/graphql-client/types.global';
 import {
-  useFindMissionByNameQuery,
-  FindMissionByNameDocument,
-} from '../src/graphql-client/queries/MissionsQuery.generated';
+  LaunchesPastDocument,
+  useLaunchesPastQuery,
+} from '../src/graphql-client/queries/LaunchPastQuery.generated';
+import LaunchCardList from '../components/LaunchCardList';
 import { addApolloState, initializeApollo } from '../src/lib/apollo-client';
-import MissionCardList from '../components/MissionCardList';
 
 export async function getStaticProps() {
   const apolloClient = initializeApollo();
 
   await apolloClient.query({
-    query: FindMissionByNameDocument,
+    query: LaunchesPastDocument,
     variables: {
       name: '',
     },
@@ -36,12 +36,16 @@ export async function getStaticProps() {
   });
 }
 
-function Home() {
+function LaunchPage() {
   const router = useRouter();
   const search = router.query.search as string;
   const [missionName, setMissionName] = useState('');
 
-  const { loading, error, data } = useFindMissionByNameQuery({
+  const {
+    loading,
+    error,
+    data: launchesData,
+  } = useLaunchesPastQuery({
     skip: !missionName,
     variables: {
       name: missionName.toLowerCase() === 'all' ? '' : missionName,
@@ -49,12 +53,12 @@ function Home() {
     nextFetchPolicy: 'cache-first',
   });
 
-  const missions = useMemo(() => {
-    if (data?.missions) {
-      return data.missions;
+  const launches = useMemo(() => {
+    if (launchesData?.launchesPast) {
+      return launchesData.launchesPast;
     }
     return [];
-  }, [data]);
+  }, [launchesData]);
 
   useEffect(() => {
     setMissionName(search || '');
@@ -63,7 +67,7 @@ function Home() {
   const handleSearch = (value: string) => {
     setMissionName(value);
     router.push({
-      pathname: '/',
+      pathname: '/launches',
       query: { search: value },
     });
   };
@@ -71,10 +75,10 @@ function Home() {
   return (
     <div>
       <Head>
-        <title>{`SpaceX Missions - Giancarlos Cercado`}</title>
+        <title>{`SpaceX's Launches Past - Giancarlos Cercado`}</title>
         <meta
           name="description"
-          content="SpaceX's Mission Searcher with GraphQl(SpaceX api), Next/Typescript and Chakra UI"
+          content="SpaceX's Launches Searcher with GraphQl(SpaceX api), Next/Typescript and Chakra UI"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -83,7 +87,7 @@ function Home() {
         <Container maxW="full" mx={8}>
           <Box alignItems={'center'}>
             <Text fontSize="3xl" color={'blue.400'} mt={'4'} mb={'4'}>
-              {`SpaceX Missions`}
+              {`SpaceX's Launches Past`}
             </Text>
             <Search
               onSearchDebounced={handleSearch}
@@ -91,7 +95,7 @@ function Home() {
               placeholder="Search by mission name"
             />
             <Text fontSize="sm" color="blackAlpha.700">
-              Type <Badge>All</Badge> to see all missions
+              Type <Badge>All</Badge> to see all launches
             </Text>
           </Box>
 
@@ -105,11 +109,11 @@ function Home() {
               </Alert>
             )}
 
-            <MissionCardList
-              dataList={missions as Mission[]}
+            <LaunchCardList
+              dataList={launches as Launch[]}
               isLoading={loading}
             />
-            {!loading && !error && missions.length === 0 && search?.length > 0 && (
+            {!loading && !error && launches.length === 0 && search?.length > 0 && (
               <Alert status="info">
                 <AlertIcon />
                 No results found
@@ -135,4 +139,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default LaunchPage;

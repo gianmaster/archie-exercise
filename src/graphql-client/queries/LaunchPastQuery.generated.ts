@@ -8,7 +8,7 @@ export type LaunchesPastQueryVariables = Types.Exact<{
 }>;
 
 
-export type LaunchesPastQuery = { __typename?: 'Query', launchesPast?: Array<{ __typename?: 'Launch', id?: string | null, launch_date_unix?: any | null, launch_year?: string | null, mission_name?: string | null, launch_date_local?: any | null, launch_site?: { __typename?: 'LaunchSite', site_name_long?: string | null } | null, links?: { __typename?: 'LaunchLinks', article_link?: string | null, video_link?: string | null, flickr_images?: Array<string | null> | null } | null, rocket?: { __typename?: 'LaunchRocket', rocket_name?: string | null } | null, ships?: Array<{ __typename?: 'Ship', name?: string | null, home_port?: string | null, image?: string | null } | null> | null } | null> | null };
+export type LaunchesPastQuery = { __typename?: 'Query', launchesPast?: Array<{ __typename?: 'Launch', id?: string | null, launch_date_unix?: any | null, launch_year?: string | null, mission_name?: string | null, launch_date_local?: any | null, launch_site?: { __typename?: 'LaunchSite', site_name_long?: string | null } | null, links?: { __typename?: 'LaunchLinks', article_link?: string | null, video_link?: string | null, flickr_images?: Array<string | null> | null } | null } | null> | null };
 
 
 export const LaunchesPastDocument = gql`
@@ -26,14 +26,6 @@ export const LaunchesPastDocument = gql`
       article_link
       video_link
       flickr_images
-    }
-    rocket {
-      rocket_name
-    }
-    ships {
-      name
-      home_port
-      image
     }
   }
 }
