@@ -36,3 +36,6 @@ Here is a demo (deployed with vercel)
 [Launches Searcher](https://archie-exercise.vercel.app/launches?search=se)
 ![image](https://user-images.githubusercontent.com/8931070/199392779-e9e0915d-da73-4634-aeeb-45ecf26fcd04.png)
 
+### Final notes
+  - [x] In this implementation was added `src/lib/apollo-client.ts` to customize the implementation of the apollo client in order to have hydration for SSR  
+ - [x] I use `getStaticProps` next.js methods to hydrate the most expensive queries here to have SSR and improve the performance of the pages. They request `all` on purpose to showcase this scenario 
